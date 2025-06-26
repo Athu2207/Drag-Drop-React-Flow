@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+.heading{
+    margin-bottom: 20px;
+}
+.sidebar {
+  width: 150px;
+  padding: 10px;
+  background: #01d9ff;
+  border-right: 1px solid #ccc;
+}
+
+.sidebar-node {
+  background: rgb(224, 20, 20);
+  border: 1px solid #999;
+  padding: 8px;
+  color: white;
+  margin-bottom: 10px;
+  cursor: grab;
+  text-align: center;
+}
+
+.canvas {
+  flex: 1;
+  height: 100vh;
+}
