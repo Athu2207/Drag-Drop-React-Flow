@@ -27,3 +27,14 @@
   flex: 1;
   height: 100vh;
 }
+.context-menu {
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+}

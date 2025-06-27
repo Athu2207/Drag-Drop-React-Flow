@@ -7,13 +7,21 @@ export default function Column() {
    const {project }=useReactFlow();
    
    const[nodes,setNodes]=useState([])
+   const[context,setContext]=useState(null)
   const[edges,setEdges]=useState([])
   
   const onNodesChange=(changes) => {
     setNodes((nds)=>applyNodeChanges(changes, nds));
   };
   const onConnect=(params)=>{
-    setEdges((eds)=>addEdge({...params,animated:true},eds))
+    const src=nodes.find((nd)=> nd.id===params.source)
+    const trg=nodes.find((tr)=> tr.id===params.target)
+    if(src?.data?.label==="A" && trg?.data?.label==="B"){
+        setEdges((eds)=>addEdge({...params,animated:true},eds))
+    }else{
+        alert("Cannot connect B to A (B-->A edge is not permitted)")
+    }
+    
   }
   const onDragStart = (event,label) => {
   event.dataTransfer.setData('application/reactflow',JSON.stringify({label}));
@@ -23,6 +31,22 @@ export default function Column() {
   event.preventDefault();
   event.dataTransfer.dropEffect = 'move';
   },[]);
+
+  const onContext=useCallback((event,node)=>{
+    event.preventDefault();
+    const position=project({
+        x: event.clientX,
+        y: event.clientY,
+    });
+    setContext({
+        x: position.x,
+        y: position.y,
+    })
+  },[project])
+  
+  const onClick=()=>{
+    setContext(null)
+  }
 
   const onDrop = useCallback(
   (event) =>{
@@ -53,34 +77,26 @@ export default function Column() {
         <div className="heading">
             <h1>My Tasks</h1>
         </div>
-        <div className="sidebar-node" draggable onDragStart={(e) => onDragStart(e, 'Study Chemistry')}>
-          Study Chemistry
+        <div className="sidebar-node" draggable onDragStart={(e) => onDragStart(e, 'A')}>
+          A
         </div>
-        <div className="sidebar-node" draggable onDragStart={(e) => onDragStart(e, 'Study Maths')}>
-          Study Maths
-        </div>
-        <div className="sidebar-node" draggable onDragStart={(e) => onDragStart(e, 'Extra activities')}>
-            Extra activities
-        </div>
-        <div className="sidebar-node" draggable onDragStart={(e) => onDragStart(e, 'Sleep')}>
-            Sleep
-        </div>
-        <div className="sidebar-node" draggable onDragStart={(e) => onDragStart(e, ' Play')}>
-            Play
-        </div>
-        <div className="sidebar-node" draggable onDragStart={(e) => onDragStart(e, 'Eat Lunch')}>
-            Eat Lunch
-        </div>
-        <div className="sidebar-node" draggable onDragStart={(e) => onDragStart(e, 'Eat Dinner')}>
-            Eat Dinner
+        <div className="sidebar-node" draggable onDragStart={(e) => onDragStart(e, 'B')}>
+          B
         </div>
       </div>
       <div className="canvas" onDrop={onDrop} style={{background:"#3e87e1"}} onDragOver={onDragOver}>
+        {context&& (
+            <div className="context-menu">
+                Hello World
+            </div>
+        )}
         <ReactFlow
           nodes={nodes}
           edges={edges}
           onNodesChange={onNodesChange}
           onConnect={onConnect}
+          onContextMenu={onContext}
+          onPaneClick={onClick}
           fitView
         >
          
