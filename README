@@ -1,0 +1,10 @@
+This is a Drag-Drop web application created using React-Flow library
+Consists of a block of tasks which can be dragged and placed on the screen
+Further, you can also establish connection between tasks by clicking the black dot on a node and joining it to desired node
+Since, this was just a practice project, I havent used much styling, but my attention was towards understanding the use of React-Flow library rather than styling it properly!
+The code has been written in simple terms so that anyone having a good JavaScript knowledge can understand it
+You can also add nodes manually by manipulating the code in Column.jsx (just add in nodes state)
+This library is still new to me and I will definitely try to improve myself by learning more things!
+To run locally use npm start 
+netlify deployed link : https://preeminent-yeot-854c0e.netlify.app/
+Thank you!
